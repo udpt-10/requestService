@@ -64,7 +64,7 @@ public class LeaveRequestService {
     public String editLeaveRequest() {
         Optional<LeaveRequest> optionalLeaveRequest = leaveRequestRepository.findById(leaveRequest.getLeaveRequestId());
         if (!optionalLeaveRequest.isPresent()) {
-            throw new NotFoundException("Not found OT has Id "+ leaveRequest.getLeaveRequestId());
+            throw new NotFoundException("Not found leave has Id "+ leaveRequest.getLeaveRequestId());
         }
 
         LeaveRequest leaveRequestDB = optionalLeaveRequest.get();
@@ -87,6 +87,6 @@ public class LeaveRequestService {
         }
 
         leaveRequestRepository.delete(optionalLeaveRequest.get());
-        return "The OT has id " + leaveRequestId + "was deleted";
+        return "The leave has id " + leaveRequestId + "was deleted";
     }
 }
