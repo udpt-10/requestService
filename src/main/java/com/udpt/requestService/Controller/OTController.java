@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins= "*", maxAge = 4800, allowCredentials = "false" )
 @Controller
 @RestController
+
 @RequestMapping("/OTRequest")
+
 public class OTController {
     @Autowired
     private OTRequestService otRequestService;
