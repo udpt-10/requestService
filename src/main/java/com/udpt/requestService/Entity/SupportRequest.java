@@ -12,7 +12,7 @@ public class SupportRequest {
     private int supportRequestId;
 
     @Column(name = "employee_id")
-    private String employee_id;
+    private int employeeId;
 
     @Column(name = "date")
     private Date date;
@@ -56,12 +56,12 @@ public class SupportRequest {
         this.supportRequestId = supportRequestId;
     }
 
-    public String getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(String employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Date getDate() {
