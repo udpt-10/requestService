@@ -32,6 +32,12 @@ public class LeaveController {
         return leaveRequestService.getAllLeaveRequestByEmployeeId();
     }
 
+    @GetMapping("/managerId/{managerId}")
+    public List<LeaveResponse> getAllLeaveRequestByManagerId(@PathVariable int managerId) {
+        leaveRequestService.setManagerId(managerId);
+        return leaveRequestService.getAllLeaveRequestByManagerId();
+    }
+
     @PostMapping("/add")
     public String addNewLeaveRequest (@RequestBody LeaveRequestRequest leaveRequestRequest) {
         leaveRequestService.setLeaveRequestRequest(leaveRequestRequest);

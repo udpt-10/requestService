@@ -36,6 +36,8 @@ public class LeaveRequestService {
 
     private int employeeId;
 
+    private int managerId;
+
     public void setLeaveRequestRequest(LeaveRequestRequest leaveRequestRequest) {
         this.leaveRequestRequest = leaveRequestRequest;
     }
@@ -50,6 +52,10 @@ public class LeaveRequestService {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 
     public List<LeaveResponse> getAllLeaveRequest() {
@@ -68,6 +74,20 @@ public class LeaveRequestService {
 
     public List<LeaveResponse> getAllLeaveRequestByEmployeeId()  {
         List<LeaveRequest> leaveRequestList = leaveRequestRepository.findAllByEmployeeId(employeeId);
+        List<LeaveResponse> leaveResponseList = new ArrayList<LeaveResponse>();
+        for (LeaveRequest leaveRequest : leaveRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(leaveRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(leaveRequest.getManagerId());
+
+            LeaveResponse leaveResponse = new LeaveResponse();
+            leaveResponse = LeaveRequestDTO.response(leaveRequest,optionalEmployee.get(),optionalManager.get());
+            leaveResponseList.add(leaveResponse);
+        }
+        return leaveResponseList;
+    }
+
+    public List<LeaveResponse> getAllLeaveRequestByManagerId()  {
+        List<LeaveRequest> leaveRequestList = leaveRequestRepository.findAllByManagerId(managerId);
         List<LeaveResponse> leaveResponseList = new ArrayList<LeaveResponse>();
         for (LeaveRequest leaveRequest : leaveRequestList) {
             Optional<Employee> optionalEmployee = employeeRepository.findById(leaveRequest.getEmployeeId());

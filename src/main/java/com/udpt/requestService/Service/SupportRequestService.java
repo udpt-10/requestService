@@ -36,6 +36,8 @@ public class SupportRequestService {
 
     private int supportRequestId;
 
+    private int managerId;
+
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
@@ -56,6 +58,10 @@ public class SupportRequestService {
         this.supportRequestId = supportRequestId;
     }
 
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
     public List<SupportRequestResponse> getAllSupportRequest() {
 
         List<SupportRequest> supportRequestList = supportRequestRepository.findAll();
@@ -74,6 +80,21 @@ public class SupportRequestService {
 
     public List<SupportRequestResponse> getAllSupportRequestByEmployeeId() {
         List<SupportRequest> supportRequestList = supportRequestRepository.findAllByEmployeeId(employeeId);
+        List<SupportRequestResponse> supportRequestResponseList = new ArrayList<SupportRequestResponse>();
+        for (SupportRequest supportRequest : supportRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(supportRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(supportRequest.getApprover());
+            Optional<Employee> optionalDirector = employeeRepository.findById(supportRequest.getDirectorId());
+
+            SupportRequestResponse supportRequestResponse = new SupportRequestResponse();
+            supportRequestResponse = SupportRequestDTO.response(supportRequest,optionalEmployee.get(),optionalManager.get(),optionalDirector.get());
+            supportRequestResponseList.add(supportRequestResponse);
+        }
+        return supportRequestResponseList;
+    }
+
+    public List<SupportRequestResponse> getAllSupportRequestByManagerId() {
+        List<SupportRequest> supportRequestList = supportRequestRepository.findAllByApprover(managerId);
         List<SupportRequestResponse> supportRequestResponseList = new ArrayList<SupportRequestResponse>();
         for (SupportRequest supportRequest : supportRequestList) {
             Optional<Employee> optionalEmployee = employeeRepository.findById(supportRequest.getEmployeeId());

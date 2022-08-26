@@ -1,6 +1,7 @@
 package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.Request.SupportRequestRequest;
+import com.udpt.requestService.Entity.Response.OTResponse;
 import com.udpt.requestService.Entity.Response.SupportRequestResponse;
 import com.udpt.requestService.Entity.SupportRequest;
 import com.udpt.requestService.Service.SupportRequestService;
@@ -33,6 +34,12 @@ public class SupportRequestController {
     public List<SupportRequestResponse> getAllSupportRequestByDepartment(@RequestBody String department) {
         supportRequestService.setDepartment(department);
         return supportRequestService.getAllSupportRequestByDepartment();
+    }
+
+    @GetMapping("/managerId/{managerId}")
+    public List<SupportRequestResponse> getAllLeaveRequestByManagerId(@PathVariable int managerId) {
+        supportRequestService.setManagerId(managerId);
+        return supportRequestService.getAllSupportRequestByManagerId();
     }
 
     @PostMapping("/add")

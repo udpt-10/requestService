@@ -31,6 +31,8 @@ public class OTRequestService {
 
     private int employeeId;
 
+    private int managerId;
+
     public void setOtRequestRequest(OTRequestRequest otRequestRequest) {
         this.otRequestRequest = otRequestRequest;
     }
@@ -45,6 +47,10 @@ public class OTRequestService {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 
     public List<OTResponse> getAllOTRequest() {
@@ -62,6 +68,20 @@ public class OTRequestService {
     }
     public List<OTResponse> getAllOTRequestByEmployeeId()  {
         List<OTRequest> otRequestList = otRequestRepository.findAllByEmployeeId(employeeId);
+        List<OTResponse> otResponseList = new ArrayList<OTResponse>();
+        for (OTRequest otRequest : otRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(otRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(otRequest.getManagerId());
+
+            OTResponse otResponse = new OTResponse();
+            otResponse = OTRequestDTO.response(otRequest,optionalEmployee.get(),optionalManager.get());
+            otResponseList.add(otResponse);
+        }
+        return otResponseList;
+    }
+
+    public List<OTResponse> getAllOTRequestByManagerId()  {
+        List<OTRequest> otRequestList = otRequestRepository.findAllByManagerId(managerId);
         List<OTResponse> otResponseList = new ArrayList<OTResponse>();
         for (OTRequest otRequest : otRequestList) {
             Optional<Employee> optionalEmployee = employeeRepository.findById(otRequest.getEmployeeId());

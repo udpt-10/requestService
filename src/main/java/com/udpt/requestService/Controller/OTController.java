@@ -2,6 +2,7 @@ package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.OTRequest;
 import com.udpt.requestService.Entity.Request.OTRequestRequest;
+import com.udpt.requestService.Entity.Response.LeaveResponse;
 import com.udpt.requestService.Entity.Response.OTResponse;
 import com.udpt.requestService.Service.OTRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class OTController {
     public List<OTResponse> getAllOTRequestByEmployeeId(@PathVariable int employeeId) {
         otRequestService.setEmployeeId(employeeId);
         return otRequestService.getAllOTRequestByEmployeeId();
+    }
+
+    @GetMapping("/managerId/{managerId}")
+    public List<OTResponse> getAllLeaveRequestByManagerId(@PathVariable int managerId) {
+        otRequestService.setManagerId(managerId);
+        return otRequestService.getAllOTRequestByManagerId();
     }
 
     @PostMapping("/add")

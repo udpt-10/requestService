@@ -10,4 +10,5 @@ import java.util.List;
 public interface SupportRequestRepository extends JpaRepository<SupportRequest, Integer> {
     List<SupportRequest> findAllByEmployeeId (int employeeId);
     List<SupportRequest> findAllByDepartment (String department);
+    List<SupportRequest> findAllByApprover (int managerId);
 }
