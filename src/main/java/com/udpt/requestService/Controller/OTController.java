@@ -2,6 +2,7 @@ package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.OTRequest;
 import com.udpt.requestService.Entity.Request.OTRequestRequest;
+import com.udpt.requestService.Entity.Response.OTResponse;
 import com.udpt.requestService.Service.OTRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,12 @@ public class OTController {
     private OTRequestService otRequestService;
 
     @GetMapping("/all")
-    public List<OTRequest> getAllOTRequest() {
+    public List<OTResponse> getAllOTRequest() {
         return otRequestService.getAllOTRequest();
     }
 
     @GetMapping("/{employeeId}")
-    public List<OTRequest> getAllOTRequestByEmployeeId(@PathVariable int employeeId) {
+    public List<OTResponse> getAllOTRequestByEmployeeId(@PathVariable int employeeId) {
         otRequestService.setEmployeeId(employeeId);
         return otRequestService.getAllOTRequestByEmployeeId();
     }

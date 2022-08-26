@@ -1,12 +1,17 @@
 package com.udpt.requestService.Service;
 
+import com.udpt.requestService.DTO.OTRequestDTO;
+import com.udpt.requestService.Entity.Employee;
 import com.udpt.requestService.Entity.OTRequest;
 import com.udpt.requestService.Entity.Request.OTRequestRequest;
+import com.udpt.requestService.Entity.Response.OTResponse;
 import com.udpt.requestService.HandleException.NotFoundException;
+import com.udpt.requestService.Repository.EmployeeRepository;
 import com.udpt.requestService.Repository.OTRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +19,9 @@ import java.util.Optional;
 public class OTRequestService {
     @Autowired
     private OTRequestRepository otRequestRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private OTRequestRequest otRequestRequest;
 
@@ -39,16 +47,37 @@ public class OTRequestService {
         this.employeeId = employeeId;
     }
 
-    public List<OTRequest> getAllOTRequest() {
-        return otRequestRepository.findAll();
+    public List<OTResponse> getAllOTRequest() {
+        List<OTRequest> otRequestList = otRequestRepository.findAll();
+        List<OTResponse> otResponseList = new ArrayList<OTResponse>();
+        for (OTRequest otRequest : otRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(otRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(otRequest.getManagerId());
+
+            OTResponse otResponse = new OTResponse();
+            otResponse = OTRequestDTO.response(otRequest,optionalEmployee.get(),optionalManager.get());
+            otResponseList.add(otResponse);
+        }
+        return otResponseList;
     }
-    public List<OTRequest> getAllOTRequestByEmployeeId()  {
-        return otRequestRepository.findAllByEmployeeId(employeeId);
+    public List<OTResponse> getAllOTRequestByEmployeeId()  {
+        List<OTRequest> otRequestList = otRequestRepository.findAllByEmployeeId(employeeId);
+        List<OTResponse> otResponseList = new ArrayList<OTResponse>();
+        for (OTRequest otRequest : otRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(otRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(otRequest.getManagerId());
+
+            OTResponse otResponse = new OTResponse();
+            otResponse = OTRequestDTO.response(otRequest,optionalEmployee.get(),optionalManager.get());
+            otResponseList.add(otResponse);
+        }
+        return otResponseList;
     }
 
     public String addNewOtRequest() {
         OTRequest otRequest = new OTRequest();
         otRequest.setEmployeeId(otRequestRequest.getEmployeeId());
+        otRequest.setManagerId(otRequestRequest.getManagerId());
         otRequest.setDate(otRequestRequest.getDate());
         otRequest.setHour(otRequestRequest.getHour());
         otRequest.setReason(otRequestRequest.getReason());

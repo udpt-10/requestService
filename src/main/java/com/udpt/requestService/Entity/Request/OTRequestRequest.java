@@ -7,12 +7,14 @@ public class OTRequestRequest {
     private Date date;
     private int hour;
     private String reason;
+    private int managerId;
 
-    public OTRequestRequest(int employeeId, Date date, int hour, String reason) {
+    public OTRequestRequest(int employeeId, Date date, int hour, String reason, int managerId) {
         this.employeeId = employeeId;
         this.date = date;
         this.hour = hour;
         this.reason = reason;
+        this.managerId = managerId;
     }
 
     public int getEmployeeId() {
@@ -45,5 +47,13 @@ public class OTRequestRequest {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 }
