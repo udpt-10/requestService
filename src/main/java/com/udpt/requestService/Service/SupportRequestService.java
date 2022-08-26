@@ -130,6 +130,8 @@ public class SupportRequestService {
         supportRequest.setDepartment(supportRequestRequest.getDepartment());
         supportRequest.setReason(supportRequestRequest.getReason());
         supportRequest.setDescribe(supportRequestRequest.getDescribe());
+        supportRequest.setApprover(supportRequestRequest.getManagerId());
+        supportRequest.setDirectorId(supportRequestRequest.getDirectorId());
         supportRequestRepository.save(supportRequest);
 
         return "Added new support request";
