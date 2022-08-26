@@ -1,6 +1,7 @@
 package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.Request.WorkFromHomeRequestRequest;
+import com.udpt.requestService.Entity.Response.WFHResponse;
 import com.udpt.requestService.Entity.WorkFromHomeRequest;
 import com.udpt.requestService.Service.WorkFromHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class WorkFromHomeController {
     private WorkFromHomeService workFromHomeService;
 
     @GetMapping("/all")
-    public List<WorkFromHomeRequest> getAllWorkFromHome() {
+    public List<WFHResponse> getAllWorkFromHome() {
         return workFromHomeService.getAllWorkFromHome();
     }
 
     @GetMapping("/{employeeId}")
-    public List<WorkFromHomeRequest> getAllWorkFromHomeByEmployeeId(@PathVariable int employeeId) {
+    public List<WFHResponse> getAllWorkFromHomeByEmployeeId(@PathVariable int employeeId) {
         workFromHomeService.setEmployeeId(employeeId);
         return workFromHomeService.getAllWorkFromHomeByEmployeeId();
     }

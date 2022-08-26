@@ -1,12 +1,20 @@
 package com.udpt.requestService.Service;
 
+import com.udpt.requestService.DTO.LeaveRequestDTO;
+import com.udpt.requestService.DTO.WFHDTO;
+import com.udpt.requestService.Entity.Employee;
+import com.udpt.requestService.Entity.LeaveRequest;
 import com.udpt.requestService.Entity.Request.WorkFromHomeRequestRequest;
+import com.udpt.requestService.Entity.Response.LeaveResponse;
+import com.udpt.requestService.Entity.Response.WFHResponse;
 import com.udpt.requestService.Entity.WorkFromHomeRequest;
 import com.udpt.requestService.HandleException.NotFoundException;
+import com.udpt.requestService.Repository.EmployeeRepository;
 import com.udpt.requestService.Repository.WorkFromHomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +22,9 @@ import java.util.Optional;
 public class WorkFromHomeService {
     @Autowired
     private WorkFromHomeRepository workFromHomeRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private int employeeId;
 
@@ -39,12 +50,30 @@ public class WorkFromHomeService {
         this.workFromHomeId = workFromHomeId;
     }
 
-    public List<WorkFromHomeRequest> getAllWorkFromHome() {
-        return workFromHomeRepository.findAll();
+    public List<WFHResponse> getAllWorkFromHome() {
+        List <WorkFromHomeRequest> workFromHomeRequestList = workFromHomeRepository.findAll();
+        List<WFHResponse> wfhResponseList = new ArrayList<WFHResponse>();
+        for (WorkFromHomeRequest workFromHomeRequest : workFromHomeRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(workFromHomeRequest.getEmployeeId());
+
+            WFHResponse wfhResponse = new WFHResponse();
+            wfhResponse = WFHDTO.response(workFromHomeRequest,optionalEmployee.get());
+            wfhResponseList.add(wfhResponse);
+        }
+        return wfhResponseList;
     }
 
-    public List<WorkFromHomeRequest> getAllWorkFromHomeByEmployeeId() {
-        return workFromHomeRepository.findAllByEmployeeId(employeeId);
+    public List<WFHResponse> getAllWorkFromHomeByEmployeeId() {
+        List<WorkFromHomeRequest> workFromHomeRequestList = workFromHomeRepository.findAllByEmployeeId(employeeId);
+        List<WFHResponse> wfhResponseList = new ArrayList<WFHResponse>();
+        for (WorkFromHomeRequest workFromHomeRequest : workFromHomeRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(workFromHomeRequest.getEmployeeId());
+
+            WFHResponse wfhResponse = new WFHResponse();
+            wfhResponse = WFHDTO.response(workFromHomeRequest,optionalEmployee.get());
+            wfhResponseList.add(wfhResponse);
+        }
+        return wfhResponseList;
     }
 
     public String addNewWorkFromHome() {

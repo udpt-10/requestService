@@ -2,6 +2,7 @@ package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.GeneralInfo;
 import com.udpt.requestService.Entity.Request.GeneralInfoRequest;
+import com.udpt.requestService.Entity.Response.GeneralInfoResponse;
 import com.udpt.requestService.Service.GeneralInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,12 @@ public class GeneralInfoController {
     private GeneralInfoService generalInfoService;
 
     @GetMapping("/all")
-    public List<GeneralInfo> getAllGeneralInfo() {
+    public List<GeneralInfoResponse> getAllGeneralInfo() {
         return generalInfoService.getAllGeneralInfo();
     }
 
     @GetMapping("/{generalInfoId}")
-    public GeneralInfo getGeneralInfoByGeneralInfoId(@PathVariable int generalInfoId) {
+    public GeneralInfoResponse getGeneralInfoByGeneralInfoId(@PathVariable int generalInfoId) {
         generalInfoService.setGeneralInfoId(generalInfoId);
         return generalInfoService.getGeneralInfoByGeneralInfoId();
     }

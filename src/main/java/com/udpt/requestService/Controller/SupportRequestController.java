@@ -1,6 +1,7 @@
 package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.Request.SupportRequestRequest;
+import com.udpt.requestService.Entity.Response.SupportRequestResponse;
 import com.udpt.requestService.Entity.SupportRequest;
 import com.udpt.requestService.Service.SupportRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +19,18 @@ public class SupportRequestController {
     private SupportRequestService supportRequestService;
 
     @GetMapping("/all")
-    public List<SupportRequest> getAllSupportRequest() {
+    public List<SupportRequestResponse> getAllSupportRequest() {
         return supportRequestService.getAllSupportRequest();
     }
 
     @GetMapping("/allByEmployeeId/{employeeId}")
-    public List<SupportRequest> getAllSupportRequestByEmployeeId(@PathVariable int employeeId) {
+    public List<SupportRequestResponse> getAllSupportRequestByEmployeeId(@PathVariable int employeeId) {
         supportRequestService.setEmployeeId(employeeId);
         return supportRequestService.getAllSupportRequestByEmployeeId();
     }
 
     @PostMapping("/allByDepartment")
-    public List<SupportRequest> getAllSupportRequestByDepartment(@RequestBody String department) {
+    public List<SupportRequestResponse> getAllSupportRequestByDepartment(@RequestBody String department) {
         supportRequestService.setDepartment(department);
         return supportRequestService.getAllSupportRequestByDepartment();
     }

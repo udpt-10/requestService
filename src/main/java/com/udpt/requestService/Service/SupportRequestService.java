@@ -1,12 +1,20 @@
 package com.udpt.requestService.Service;
 
+import com.udpt.requestService.DTO.SupportRequestDTO;
+import com.udpt.requestService.DTO.WFHDTO;
+import com.udpt.requestService.Entity.Employee;
 import com.udpt.requestService.Entity.Request.SupportRequestRequest;
+import com.udpt.requestService.Entity.Response.SupportRequestResponse;
+import com.udpt.requestService.Entity.Response.WFHResponse;
 import com.udpt.requestService.Entity.SupportRequest;
+import com.udpt.requestService.Entity.WorkFromHomeRequest;
 import com.udpt.requestService.HandleException.NotFoundException;
+import com.udpt.requestService.Repository.EmployeeRepository;
 import com.udpt.requestService.Repository.SupportRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +22,9 @@ import java.util.Optional;
 public class SupportRequestService {
     @Autowired
     private SupportRequestRepository supportRequestRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private int employeeId;
 
@@ -45,16 +56,50 @@ public class SupportRequestService {
         this.supportRequestId = supportRequestId;
     }
 
-    public List<SupportRequest> getAllSupportRequest() {
-        return supportRequestRepository.findAll();
+    public List<SupportRequestResponse> getAllSupportRequest() {
+
+        List<SupportRequest> supportRequestList = supportRequestRepository.findAll();
+        List<SupportRequestResponse> supportRequestResponseList = new ArrayList<SupportRequestResponse>();
+        for (SupportRequest supportRequest : supportRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(supportRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(supportRequest.getApprover());
+            Optional<Employee> optionalDirector = employeeRepository.findById(supportRequest.getDirectorId());
+
+            SupportRequestResponse supportRequestResponse = new SupportRequestResponse();
+            supportRequestResponse = SupportRequestDTO.response(supportRequest,optionalEmployee.get(),optionalManager.get(),optionalDirector.get());
+            supportRequestResponseList.add(supportRequestResponse);
+        }
+        return supportRequestResponseList;
     }
 
-    public List<SupportRequest> getAllSupportRequestByEmployeeId() {
-        return supportRequestRepository.findAllByEmployeeId(employeeId);
+    public List<SupportRequestResponse> getAllSupportRequestByEmployeeId() {
+        List<SupportRequest> supportRequestList = supportRequestRepository.findAllByEmployeeId(employeeId);
+        List<SupportRequestResponse> supportRequestResponseList = new ArrayList<SupportRequestResponse>();
+        for (SupportRequest supportRequest : supportRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(supportRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(supportRequest.getApprover());
+            Optional<Employee> optionalDirector = employeeRepository.findById(supportRequest.getDirectorId());
+
+            SupportRequestResponse supportRequestResponse = new SupportRequestResponse();
+            supportRequestResponse = SupportRequestDTO.response(supportRequest,optionalEmployee.get(),optionalManager.get(),optionalDirector.get());
+            supportRequestResponseList.add(supportRequestResponse);
+        }
+        return supportRequestResponseList;
     }
 
-    public List<SupportRequest> getAllSupportRequestByDepartment() {
-        return supportRequestRepository.findAllByDepartment(department);
+    public List<SupportRequestResponse> getAllSupportRequestByDepartment() {
+        List<SupportRequest> supportRequestList = supportRequestRepository.findAllByDepartment(department);
+        List<SupportRequestResponse> supportRequestResponseList = new ArrayList<SupportRequestResponse>();
+        for (SupportRequest supportRequest : supportRequestList) {
+            Optional<Employee> optionalEmployee = employeeRepository.findById(supportRequest.getEmployeeId());
+            Optional<Employee> optionalManager = employeeRepository.findById(supportRequest.getApprover());
+            Optional<Employee> optionalDirector = employeeRepository.findById(supportRequest.getDirectorId());
+
+            SupportRequestResponse supportRequestResponse = new SupportRequestResponse();
+            supportRequestResponse = SupportRequestDTO.response(supportRequest,optionalEmployee.get(),optionalManager.get(),optionalDirector.get());
+            supportRequestResponseList.add(supportRequestResponse);
+        }
+        return supportRequestResponseList;
     }
 
     public String addNewSupportRequest() {
