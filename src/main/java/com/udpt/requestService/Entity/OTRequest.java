@@ -17,7 +17,7 @@ public class OTRequest {
     private int employeeId;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "hour")
     private float hour;
@@ -57,11 +57,11 @@ public class OTRequest {
         this.employeeId = employeeId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

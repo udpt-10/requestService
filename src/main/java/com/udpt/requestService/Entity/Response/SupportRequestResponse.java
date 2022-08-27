@@ -1,17 +1,19 @@
 package com.udpt.requestService.Entity.Response;
 
 import javax.persistence.Column;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SupportRequestResponse {
     private int supportRequestId;
     private int employeeId;
     private String employeeName;
-    private Date date;
+    private LocalDate date;
     private String department;
     private int approver;
     private String managerName;
-    private Date approveDate;
+    private LocalDate approveDate;
     private boolean isApproved;
     private String reason;
     private int directorId;
@@ -47,11 +49,11 @@ public class SupportRequestResponse {
         this.employeeName = employeeName;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -79,11 +81,11 @@ public class SupportRequestResponse {
         this.managerName = managerName;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
+    public void setApproveDate(LocalDate approveDate) {
         this.approveDate = approveDate;
     }
 

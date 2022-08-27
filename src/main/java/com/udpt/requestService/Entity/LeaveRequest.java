@@ -17,7 +17,7 @@ public class LeaveRequest {
     private int employeeId;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "leaving_type")
     private String leavingType;
@@ -73,7 +73,7 @@ public class LeaveRequest {
 		this.note = note;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
         return date;
     }
     
@@ -86,7 +86,7 @@ public class LeaveRequest {
 		this.numberDays = numberDays;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
         this.date = date;
     }
 

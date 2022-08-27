@@ -1,35 +1,103 @@
 package com.udpt.requestService.Entity.Response;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class LeaveResponse {
     private int leaveRequestId;
     private int employeeId;
     private String employeeName;
-    private Date date;
-    private float hour;
+    private LocalDate date;
     private String reason;
+    private int numberDays;
+    private String leavingType;
     private int managerId;
     private String managerName;
-    private int isApproved;
+    private boolean isApproved;
     private String approveReason;
-    private Date approveDate;
+    private LocalDate approveDate;
+    private String note;
 
-    public LeaveResponse(int leaveRequestId, int employeeId, String employeeName, Date date, float hour, String reason, int managerId, String managerName, int isApproved, String approveReason, Date approveDate) {
-        this.leaveRequestId = leaveRequestId;
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.date = date;
-        this.hour = hour;
-        this.reason = reason;
-        this.managerId = managerId;
-        this.managerName = managerName;
-        this.isApproved = isApproved;
-        this.approveReason = approveReason;
-        this.approveDate = approveDate;
-    }
+    
+    
+    
+    
+    
 
-    public int getLeaveRequestId() {
+    public String getNote() {
+		return note;
+	}
+
+
+
+
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+
+
+
+
+	
+
+
+
+
+
+	public LeaveResponse(int leaveRequestId, int employeeId, String employeeName, LocalDate date, String reason,
+			int numberDays, String leavingType, int managerId, String managerName, boolean isApproved,
+			String approveReason, LocalDate approveDate, String note) {
+		super();
+		this.leaveRequestId = leaveRequestId;
+		this.employeeId = employeeId;
+		this.employeeName = employeeName;
+		this.date = date;
+		this.reason = reason;
+		this.numberDays = numberDays;
+		this.leavingType = leavingType;
+		this.managerId = managerId;
+		this.managerName = managerName;
+		this.isApproved = isApproved;
+		this.approveReason = approveReason;
+		this.approveDate = approveDate;
+		this.note = note;
+	}
+
+
+
+
+
+	public String getLeavingType() {
+		return leavingType;
+	}
+
+
+
+
+
+	public void setLeavingType(String leavingType) {
+		this.leavingType = leavingType;
+	}
+
+
+
+
+
+	public int getNumberDays() {
+		return numberDays;
+	}
+
+
+
+	public void setNumberDays(int numberDays) {
+		this.numberDays = numberDays;
+	}
+
+
+
+	public int getLeaveRequestId() {
         return leaveRequestId;
     }
 
@@ -45,21 +113,14 @@ public class LeaveResponse {
         this.employeeId = employeeId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public float getHour() {
-        return hour;
-    }
-
-    public void setHour(float hour) {
-        this.hour = hour;
-    }
 
     public String getReason() {
         return reason;
@@ -77,11 +138,11 @@ public class LeaveResponse {
         this.managerId = managerId;
     }
 
-    public int getIsApproved() {
+    public boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setIsApproved(int isApproved) {
+    public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
     }
 
@@ -93,11 +154,11 @@ public class LeaveResponse {
         this.approveReason = approveReason;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
+    public void setApproveDate(LocalDate approveDate) {
         this.approveDate = approveDate;
     }
 

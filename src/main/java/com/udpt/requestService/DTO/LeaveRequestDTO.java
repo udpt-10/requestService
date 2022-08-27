@@ -13,13 +13,15 @@ public class LeaveRequestDTO {
         leaveResponse.setEmployeeId(leaveRequest.getEmployeeId());
         leaveResponse.setEmployeeName(employee.getEmployeeName());
         leaveResponse.setDate(leaveRequest.getDate());
-        leaveResponse.setHour(leaveRequest.getHour());
         leaveResponse.setReason(leaveRequest.getReason());
+        leaveResponse.setNumberDays(leaveRequest.getNumberDays());
+        leaveResponse.setLeavingType(leaveRequest.getLeavingType());
         leaveResponse.setManagerId(leaveRequest.getManagerId());
         leaveResponse.setManagerName(manager.getEmployeeName());
         leaveResponse.setIsApproved(leaveRequest.getIsApproved());
         leaveResponse.setApproveReason(leaveRequest.getApproveReason());
         leaveResponse.setApproveDate(leaveRequest.getApproveDate());
+        leaveResponse.setNote(leaveRequest.getNote());
         return leaveResponse;
     }
 }

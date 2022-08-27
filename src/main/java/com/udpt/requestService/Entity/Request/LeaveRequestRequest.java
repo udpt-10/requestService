@@ -1,15 +1,16 @@
 package com.udpt.requestService.Entity.Request;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class LeaveRequestRequest {
     private int employeeId;
-    private Date date;
+    private LocalDate date;
     private String leavingType;
     private String reason;
     private int numberDays;
 
-    public LeaveRequestRequest(int employeeId, Date date, String leavingType, String reason) {
+    public LeaveRequestRequest(int employeeId, LocalDate date, String leavingType, String reason) {
         this.employeeId = employeeId;
         this.date = date;
         this.leavingType = leavingType;
@@ -36,11 +37,11 @@ public class LeaveRequestRequest {
 	}
 
 
-	public Date getDate() {
+	public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

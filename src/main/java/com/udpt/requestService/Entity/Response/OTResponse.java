@@ -1,20 +1,22 @@
 package com.udpt.requestService.Entity.Response;
 
 import javax.persistence.Column;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class OTResponse {
     private int otRequestId;
     private int employeeId;
     private String employeeName;
-    private Date date;
+    private LocalDate date;
     private float hour;
     private String reason;
     private int managerId;
     private String managerName;
-    private int isApproved;
+    private boolean isApproved;
     private String approveReason;
-    private Date approveDate;
+    private LocalDate approveDate;
 
     public int getOtRequestId() {
         return otRequestId;
@@ -32,11 +34,11 @@ public class OTResponse {
         this.employeeId = employeeId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -64,11 +66,11 @@ public class OTResponse {
         this.managerId = managerId;
     }
 
-    public int getIsApproved() {
+    public boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setIsApproved(int isApproved) {
+    public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
     }
 
@@ -80,11 +82,11 @@ public class OTResponse {
         this.approveReason = approveReason;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
+    public void setApproveDate(LocalDate approveDate) {
         this.approveDate = approveDate;
     }
 
