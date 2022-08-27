@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface OTRequestRepository extends JpaRepository<OTRequest, Integer> {
     List<OTRequest> findAllByEmployeeId(int employeeId);
-    List<OTRequest> findAllByManagerId(int managerId);
 }

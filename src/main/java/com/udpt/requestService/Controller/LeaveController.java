@@ -4,7 +4,6 @@ import com.udpt.requestService.Entity.LeaveRequest;
 import com.udpt.requestService.Entity.OTRequest;
 import com.udpt.requestService.Entity.Request.LeaveRequestRequest;
 import com.udpt.requestService.Entity.Request.OTRequestRequest;
-import com.udpt.requestService.Entity.Response.LeaveResponse;
 import com.udpt.requestService.Service.LeaveRequestService;
 import com.udpt.requestService.Service.OTRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,26 +15,20 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/LeaveRequest")
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LeaveController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
     @GetMapping("/all")
-    public List<LeaveResponse> getAllLeaveRequest() {
+    public List<LeaveRequest> getAllLeaveRequest() {
         return leaveRequestService.getAllLeaveRequest();
     }
 
     @GetMapping("/{employeeId}")
-    public List<LeaveResponse> getAllLeaveRequestByEmployeeId(@PathVariable int employeeId) {
+    public List<LeaveRequest> getAllLeaveRequestByEmployeeId(@PathVariable int employeeId) {
         leaveRequestService.setEmployeeId(employeeId);
         return leaveRequestService.getAllLeaveRequestByEmployeeId();
-    }
-
-    @GetMapping("/managerId/{managerId}")
-    public List<LeaveResponse> getAllLeaveRequestByManagerId(@PathVariable int managerId) {
-        leaveRequestService.setManagerId(managerId);
-        return leaveRequestService.getAllLeaveRequestByManagerId();
     }
 
     @PostMapping("/add")

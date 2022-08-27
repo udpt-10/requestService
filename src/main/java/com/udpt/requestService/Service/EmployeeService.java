@@ -14,45 +14,30 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    private Employee employee;
+    private int employeeId;
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String addNewEmployee() {
+        Employee employee = new Employee();
 
-        Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getEmployeeId());
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
         if (optionalEmployee.isPresent()) {
-            throw new DuplicateException("the employee has id "+employee.getEmployeeId()+" existed in the database of the request service");
+            throw new DuplicateException("the employee has id "+employeeId+" existed in the database of the request service");
         }
-
-        Employee employeeDB = new Employee();
-        employeeDB.setEmployeeId(employee.getEmployeeId());
-        employeeDB.setEmployeeName(employee.getEmployeeName());
-        employeeDB.setUserName(employee.getUserName());
-        employeeDB.setPosition(employee.getPosition());
-        employeeDB.setSalary(employee.getSalary());
-        employeeDB.setLeavingDayBalance(employee.getLeavingDayBalance());
-        employeeDB.setAddress(employee.getAddress());
-        employeeDB.setEmail(employee.getEmail());
-        employeeDB.setDateOfBirth(employee.getDateOfBirth());
-        employeeDB.setSex(employee.isSex());
-        employeeDB.setInformationSummary(employee.getInformationSummary());
-        employeeDB.setDirector(employee.getDirector());
-        employeeDB.setManager(employee.getManager());
-        employeeDB.setPhone(employee.getPhone());
-
-        employeeRepository.save(employeeDB);
-        return "employee has id " + employee.getEmployeeId() + " was added to the database of the request service";
+        employee.setEmployeeId(employeeId);
+        employeeRepository.save(employee);
+        return "employee has id " + employeeId + " was added to the database of the request service";
     }
 
     public String deleteAnEmployee() {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getEmployeeId());
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
         if (!optionalEmployee.isPresent()) {
             throw new NotFoundException("Not found employee has id "+ optionalEmployee.get().getEmployeeId());
         }
         employeeRepository.delete(optionalEmployee.get());
-        return "employee has id " + employee.getEmployeeId() + " was deleted to the database of the request service";
+        return "employee has id " + employeeId + " was deleted to the database of the request service";
     }
 }

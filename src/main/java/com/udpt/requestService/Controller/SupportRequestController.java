@@ -1,8 +1,6 @@
 package com.udpt.requestService.Controller;
 
 import com.udpt.requestService.Entity.Request.SupportRequestRequest;
-import com.udpt.requestService.Entity.Response.OTResponse;
-import com.udpt.requestService.Entity.Response.SupportRequestResponse;
 import com.udpt.requestService.Entity.SupportRequest;
 import com.udpt.requestService.Service.SupportRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,32 +12,26 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/SupportRequest")
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SupportRequestController {
     @Autowired
     private SupportRequestService supportRequestService;
 
     @GetMapping("/all")
-    public List<SupportRequestResponse> getAllSupportRequest() {
+    public List<SupportRequest> getAllSupportRequest() {
         return supportRequestService.getAllSupportRequest();
     }
 
     @GetMapping("/allByEmployeeId/{employeeId}")
-    public List<SupportRequestResponse> getAllSupportRequestByEmployeeId(@PathVariable int employeeId) {
+    public List<SupportRequest> getAllSupportRequestByEmployeeId(@PathVariable int employeeId) {
         supportRequestService.setEmployeeId(employeeId);
         return supportRequestService.getAllSupportRequestByEmployeeId();
     }
 
     @PostMapping("/allByDepartment")
-    public List<SupportRequestResponse> getAllSupportRequestByDepartment(@RequestBody String department) {
+    public List<SupportRequest> getAllSupportRequestByDepartment(@RequestBody String department) {
         supportRequestService.setDepartment(department);
         return supportRequestService.getAllSupportRequestByDepartment();
-    }
-
-    @GetMapping("/managerId/{managerId}")
-    public List<SupportRequestResponse> getAllLeaveRequestByManagerId(@PathVariable int managerId) {
-        supportRequestService.setManagerId(managerId);
-        return supportRequestService.getAllSupportRequestByManagerId();
     }
 
     @PostMapping("/add")
