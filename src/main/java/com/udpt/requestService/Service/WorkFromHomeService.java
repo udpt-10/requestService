@@ -1,20 +1,13 @@
 package com.udpt.requestService.Service;
 
-import com.udpt.requestService.DTO.LeaveRequestDTO;
-import com.udpt.requestService.DTO.WFHDTO;
-import com.udpt.requestService.Entity.Employee;
-import com.udpt.requestService.Entity.LeaveRequest;
 import com.udpt.requestService.Entity.Request.WorkFromHomeRequestRequest;
-import com.udpt.requestService.Entity.Response.LeaveResponse;
-import com.udpt.requestService.Entity.Response.WFHResponse;
 import com.udpt.requestService.Entity.WorkFromHomeRequest;
 import com.udpt.requestService.HandleException.NotFoundException;
-import com.udpt.requestService.Repository.EmployeeRepository;
 import com.udpt.requestService.Repository.WorkFromHomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +15,6 @@ import java.util.Optional;
 public class WorkFromHomeService {
     @Autowired
     private WorkFromHomeRepository workFromHomeRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
 
     private int employeeId;
 
@@ -50,36 +40,20 @@ public class WorkFromHomeService {
         this.workFromHomeId = workFromHomeId;
     }
 
-    public List<WFHResponse> getAllWorkFromHome() {
-        List <WorkFromHomeRequest> workFromHomeRequestList = workFromHomeRepository.findAll();
-        List<WFHResponse> wfhResponseList = new ArrayList<WFHResponse>();
-        for (WorkFromHomeRequest workFromHomeRequest : workFromHomeRequestList) {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(workFromHomeRequest.getEmployeeId());
-
-            WFHResponse wfhResponse = new WFHResponse();
-            wfhResponse = WFHDTO.response(workFromHomeRequest,optionalEmployee.get());
-            wfhResponseList.add(wfhResponse);
-        }
-        return wfhResponseList;
+    public List<WorkFromHomeRequest> getAllWorkFromHome() {
+        return workFromHomeRepository.findAll();
     }
 
-    public List<WFHResponse> getAllWorkFromHomeByEmployeeId() {
-        List<WorkFromHomeRequest> workFromHomeRequestList = workFromHomeRepository.findAllByEmployeeId(employeeId);
-        List<WFHResponse> wfhResponseList = new ArrayList<WFHResponse>();
-        for (WorkFromHomeRequest workFromHomeRequest : workFromHomeRequestList) {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(workFromHomeRequest.getEmployeeId());
-
-            WFHResponse wfhResponse = new WFHResponse();
-            wfhResponse = WFHDTO.response(workFromHomeRequest,optionalEmployee.get());
-            wfhResponseList.add(wfhResponse);
-        }
-        return wfhResponseList;
+    public List<WorkFromHomeRequest> getAllWorkFromHomeByEmployeeId() {
+        return workFromHomeRepository.findAllByEmployeeId(employeeId);
     }
 
     public String addNewWorkFromHome() {
         WorkFromHomeRequest workFromHomeRequest = new WorkFromHomeRequest();
         workFromHomeRequest.setEmployeeId(workFromHomeRequestRequest.getEmployeeId());
         workFromHomeRequest.setDate(workFromHomeRequestRequest.getDate());
+        workFromHomeRequest.setNumberDays(workFromHomeRequestRequest.getNumberDays());
+        workFromHomeRequest.setReason(workFromHomeRequestRequest.getReason());
         workFromHomeRepository.save(workFromHomeRequest);
         return "Work from home was added";
     }
@@ -91,8 +65,16 @@ public class WorkFromHomeService {
             throw new NotFoundException("work from home has id " + workFromHomeRequest.getWorkFromHomeRequestId());
         }
         WorkFromHomeRequest workFromHomeRequestDB = optionalWorkFromHomeRequest.get();
-        workFromHomeRequestDB.setDate(workFromHomeRequest.getDate());
-        workFromHomeRepository.save(workFromHomeRequest);
+        workFromHomeRequestDB.getEmployeeId();
+        workFromHomeRequestDB.getDate();
+        workFromHomeRequestDB.getNumberDays();
+        workFromHomeRequestDB.getReason();
+        workFromHomeRequestDB.setManagerId(workFromHomeRequest.getManagerId());
+        workFromHomeRequestDB.setApproved(workFromHomeRequest.isApproved());
+        workFromHomeRequestDB.setApproveDate(LocalDate.now());
+        workFromHomeRequestDB.setApproveReason(workFromHomeRequest.getApproveReason());
+        
+        workFromHomeRepository.save(workFromHomeRequestDB);
         return "Work from home has id " + workFromHomeRequest.getWorkFromHomeRequestId() + " was edited";
     }
 

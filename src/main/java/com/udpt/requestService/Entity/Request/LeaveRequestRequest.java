@@ -5,18 +5,18 @@ import java.util.Date;
 public class LeaveRequestRequest {
     private int employeeId;
     private Date date;
-    private int hour;
+    private String leavingType;
     private String reason;
-    private int managerId;
+    private int numberDays;
 
-    public LeaveRequestRequest(int employeeId, Date date, int hour, String reason, int managerId) {
+    public LeaveRequestRequest(int employeeId, Date date, String leavingType, String reason) {
         this.employeeId = employeeId;
         this.date = date;
-        this.hour = hour;
+        this.leavingType = leavingType;
         this.reason = reason;
-        this.managerId = managerId;
     }
 
+    
     public int getEmployeeId() {
         return employeeId;
     }
@@ -25,7 +25,18 @@ public class LeaveRequestRequest {
         this.employeeId = employeeId;
     }
 
-    public Date getDate() {
+    
+    public int getNumberDays() {
+		return numberDays;
+	}
+
+
+	public void setNumberDays(int numberDays) {
+		this.numberDays = numberDays;
+	}
+
+
+	public Date getDate() {
         return date;
     }
 
@@ -33,27 +44,21 @@ public class LeaveRequestRequest {
         this.date = date;
     }
 
-    public int getHour() {
-        return hour;
-    }
+    
 
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
+    public String getLeavingType() {
+		return leavingType;
+	}
 
-    public String getReason() {
+	public void setLeavingType(String leavingType) {
+		this.leavingType = leavingType;
+	}
+
+	public String getReason() {
         return reason;
     }
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
     }
 }

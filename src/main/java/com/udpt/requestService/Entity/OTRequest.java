@@ -1,6 +1,8 @@
 package com.udpt.requestService.Entity;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -27,13 +29,13 @@ public class OTRequest {
     private int managerId;
 
     @Column(name= "is_approved")
-    private int isApproved;
+    private boolean isApproved;
 
     @Column(name = "approve_reason")
     private String approveReason;
 
     @Column(name = "approve_date")
-    private Date approveDate;
+    private LocalDate approveDate;
 
     public OTRequest () {
 
@@ -87,11 +89,11 @@ public class OTRequest {
         this.managerId = managerId;
     }
 
-    public int getIsApproved() {
+    public boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setIsApproved(int isApproved) {
+    public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
     }
 
@@ -103,11 +105,11 @@ public class OTRequest {
         this.approveReason = approveReason;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
+    public void setApproveDate(LocalDate approveDate) {
         this.approveDate = approveDate;
     }
 }

@@ -1,6 +1,8 @@
 package com.udpt.requestService.Entity;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,7 +17,7 @@ public class SupportRequest {
     private int employeeId;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "department")
     private String department;
@@ -24,7 +26,7 @@ public class SupportRequest {
     private int approver;
 
     @Column(name = "approve_date")
-    private Date approveDate;
+    private LocalDate approveDate;
 
     @Column(name = "is_approved")
     private boolean isApproved;
@@ -64,11 +66,11 @@ public class SupportRequest {
         this.employeeId = employeeId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -88,11 +90,11 @@ public class SupportRequest {
         this.approver = approver;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
+    public void setApproveDate(LocalDate approveDate) {
         this.approveDate = approveDate;
     }
 

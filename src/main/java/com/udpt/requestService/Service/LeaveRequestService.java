@@ -1,22 +1,16 @@
-package com.udpt.requestService.Service;
+ package com.udpt.requestService.Service;
 
-import com.udpt.requestService.DTO.LeaveRequestDTO;
-import com.udpt.requestService.DTO.OTRequestDTO;
-import com.udpt.requestService.Entity.Employee;
 import com.udpt.requestService.Entity.LeaveRequest;
 import com.udpt.requestService.Entity.OTRequest;
 import com.udpt.requestService.Entity.Request.LeaveRequestRequest;
 import com.udpt.requestService.Entity.Request.OTRequestRequest;
-import com.udpt.requestService.Entity.Response.LeaveResponse;
-import com.udpt.requestService.Entity.Response.OTResponse;
 import com.udpt.requestService.HandleException.NotFoundException;
-import com.udpt.requestService.Repository.EmployeeRepository;
 import com.udpt.requestService.Repository.LeaveRequestRepository;
 import com.udpt.requestService.Repository.OTRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +19,6 @@ public class LeaveRequestService {
     @Autowired
     private LeaveRequestRepository leaveRequestRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
     private LeaveRequestRequest leaveRequestRequest;
 
     private LeaveRequest leaveRequest;
@@ -35,8 +26,6 @@ public class LeaveRequestService {
     private int leaveRequestId;
 
     private int employeeId;
-
-    private int managerId;
 
     public void setLeaveRequestRequest(LeaveRequestRequest leaveRequestRequest) {
         this.leaveRequestRequest = leaveRequestRequest;
@@ -54,59 +43,21 @@ public class LeaveRequestService {
         this.employeeId = employeeId;
     }
 
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
+    public List<LeaveRequest> getAllLeaveRequest() {
+        return leaveRequestRepository.findAll();
     }
 
-    public List<LeaveResponse> getAllLeaveRequest() {
-        List<LeaveRequest> leaveRequestList = leaveRequestRepository.findAll();
-        List<LeaveResponse> leaveResponseList = new ArrayList<LeaveResponse>();
-        for (LeaveRequest leaveRequest : leaveRequestList) {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(leaveRequest.getEmployeeId());
-            Optional<Employee> optionalManager = employeeRepository.findById(leaveRequest.getManagerId());
-
-            LeaveResponse leaveResponse = new LeaveResponse();
-            leaveResponse = LeaveRequestDTO.response(leaveRequest,optionalEmployee.get(),optionalManager.get());
-            leaveResponseList.add(leaveResponse);
-        }
-        return leaveResponseList;
-    }
-
-    public List<LeaveResponse> getAllLeaveRequestByEmployeeId()  {
-        List<LeaveRequest> leaveRequestList = leaveRequestRepository.findAllByEmployeeId(employeeId);
-        List<LeaveResponse> leaveResponseList = new ArrayList<LeaveResponse>();
-        for (LeaveRequest leaveRequest : leaveRequestList) {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(leaveRequest.getEmployeeId());
-            Optional<Employee> optionalManager = employeeRepository.findById(leaveRequest.getManagerId());
-
-            LeaveResponse leaveResponse = new LeaveResponse();
-            leaveResponse = LeaveRequestDTO.response(leaveRequest,optionalEmployee.get(),optionalManager.get());
-            leaveResponseList.add(leaveResponse);
-        }
-        return leaveResponseList;
-    }
-
-    public List<LeaveResponse> getAllLeaveRequestByManagerId()  {
-        List<LeaveRequest> leaveRequestList = leaveRequestRepository.findAllByManagerId(managerId);
-        List<LeaveResponse> leaveResponseList = new ArrayList<LeaveResponse>();
-        for (LeaveRequest leaveRequest : leaveRequestList) {
-            Optional<Employee> optionalEmployee = employeeRepository.findById(leaveRequest.getEmployeeId());
-            Optional<Employee> optionalManager = employeeRepository.findById(leaveRequest.getManagerId());
-
-            LeaveResponse leaveResponse = new LeaveResponse();
-            leaveResponse = LeaveRequestDTO.response(leaveRequest,optionalEmployee.get(),optionalManager.get());
-            leaveResponseList.add(leaveResponse);
-        }
-        return leaveResponseList;
+    public List<LeaveRequest> getAllLeaveRequestByEmployeeId()  {
+        return leaveRequestRepository.findAllByEmployeeId(employeeId);
     }
 
     public String addNewLeaveRequest() {
         LeaveRequest leaveRequest = new LeaveRequest();
         leaveRequest.setEmployeeId(leaveRequestRequest.getEmployeeId());
         leaveRequest.setDate(leaveRequestRequest.getDate());
-        leaveRequest.setHour(leaveRequestRequest.getHour());
+        leaveRequest.setLeavingType(leaveRequestRequest.getLeavingType());
         leaveRequest.setReason(leaveRequestRequest.getReason());
-        leaveRequest.setManagerId(leaveRequestRequest.getManagerId());
+        leaveRequest.setNumberDays(leaveRequestRequest.getNumberDays());
 
         leaveRequestRepository.save(leaveRequest);
         return "The leave request was added";
@@ -119,13 +70,16 @@ public class LeaveRequestService {
         }
 
         LeaveRequest leaveRequestDB = optionalLeaveRequest.get();
-        leaveRequestDB.setDate(leaveRequest.getDate());
-        leaveRequestDB.setHour(leaveRequest.getHour());
-        leaveRequestDB.setReason(leaveRequest.getReason());
+        leaveRequestDB.getEmployeeId();
+        leaveRequestDB.getDate();
+        leaveRequestDB.getLeavingType();
+        leaveRequestDB.getReason();
+        leaveRequestDB.getNumberDays();
         leaveRequestDB.setManagerId(leaveRequest.getManagerId());
         leaveRequestDB.setIsApproved(leaveRequest.getIsApproved());
         leaveRequestDB.setApproveReason(leaveRequest.getApproveReason());
-        leaveRequestDB.setApproveDate(leaveRequest.getApproveDate());
+        leaveRequestDB.setApproveDate(LocalDate.now());
+        leaveRequestDB.setNote(leaveRequest.getNote());
 
         leaveRequestRepository.save(leaveRequestDB);
         return "The leave request was updated successful";

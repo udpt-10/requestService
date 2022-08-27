@@ -9,17 +9,13 @@ public class SupportRequestRequest {
     private String department;
     private String reason;
     private String describe;
-    private int managerId;
-    private int directorId;
 
-    public SupportRequestRequest(int employeeId, Date date, String department, String reason, String describe, int managerId, int directorId) {
+    public SupportRequestRequest(int employeeId, Date date, String department, String reason, String describe) {
         this.employeeId = employeeId;
         this.date = date;
         this.department = department;
         this.reason = reason;
         this.describe = describe;
-        this.managerId = managerId;
-        this.directorId = directorId;
     }
 
     public int getEmployeeId() {
@@ -40,13 +36,5 @@ public class SupportRequestRequest {
 
     public String getDescribe() {
         return describe;
-    }
-
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public int getDirectorId() {
-        return directorId;
     }
 }

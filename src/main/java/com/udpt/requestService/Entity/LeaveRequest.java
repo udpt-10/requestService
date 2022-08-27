@@ -1,6 +1,8 @@
 package com.udpt.requestService.Entity;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,8 +19,11 @@ public class LeaveRequest {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "hour")
-    private float hour;
+    @Column(name = "leaving_type")
+    private String leavingType;
+    
+    @Column(name = "number_days")
+    private int numberDays;
 
     @Column(name = "reason")
     private String reason;
@@ -27,13 +32,16 @@ public class LeaveRequest {
     private int managerId;
 
     @Column(name= "is_approved")
-    private int isApproved;
+    private boolean isApproved;
 
     @Column(name = "approve_reason")
     private String approveReason;
 
     @Column(name = "approve_date")
-    private Date approveDate;
+    private LocalDate approveDate;
+    
+    @Column(name="note")
+    private String note;
 
     public LeaveRequest() {
 
@@ -54,24 +62,45 @@ public class LeaveRequest {
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
+    
+    
 
-    public Date getDate() {
+    public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public Date getDate() {
         return date;
     }
+    
 
-    public void setDate(Date date) {
+    public int getNumberDays() {
+		return numberDays;
+	}
+
+	public void setNumberDays(int numberDays) {
+		this.numberDays = numberDays;
+	}
+
+	public void setDate(Date date) {
         this.date = date;
     }
 
-    public float getHour() {
-        return hour;
-    }
+  
 
-    public void setHour(float hour) {
-        this.hour = hour;
-    }
+    public String getLeavingType() {
+		return leavingType;
+	}
 
-    public String getReason() {
+	public void setLeavingType(String leavingType) {
+		this.leavingType = leavingType;
+	}
+
+	public String getReason() {
         return reason;
     }
 
@@ -87,11 +116,11 @@ public class LeaveRequest {
         this.managerId = managerId;
     }
 
-    public int getIsApproved() {
+    public boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setIsApproved(int isApproved) {
+    public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
     }
 
@@ -103,11 +132,11 @@ public class LeaveRequest {
         this.approveReason = approveReason;
     }
 
-    public Date getApproveDate() {
+    public LocalDate getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Date approveDate) {
-        this.approveDate = approveDate;
+    public void setApproveDate(LocalDate localDate) {
+        this.approveDate = localDate;
     }
 }
