@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/WorkFromHome")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class WorkFromHomeController {
     @Autowired
     private WorkFromHomeService workFromHomeService;
