@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins= "*", maxAge = 4800, allowCredentials = "false" )
+//@CrossOrigin(origins= "*", maxAge = 4800, allowCredentials = "false" )
 @Controller
 @RestController
 
